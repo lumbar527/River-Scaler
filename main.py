@@ -5,7 +5,12 @@ import pygame
 images = []
 load_image = pygame.image.load("test.png")
 images.append(load_image)
+load_image = pygame.image.load("salmon.png")
+images.append(load_image)
+load_image = pygame.image.load("title.png")
+images.append(load_image)
 sounds = None
 
 game = river_scaler.RiverScaler(images, sounds)
-game.run()
+game.title_screen()
+# game.run()
