@@ -23,5 +23,3 @@ playing = True
 
 game = river_scaler.RiverScaler(images, sounds)
 game.title_screen()
-# game.run()
-# playing = game.game_over()
