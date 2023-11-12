@@ -1,8 +1,6 @@
 import pygame
 import pygame_widgets
 from pygame_widgets.button import Button
-import random
-import time
 import objects
 
 class RiverScaler():
@@ -17,17 +15,11 @@ class RiverScaler():
         def click_play2():
             nonlocal running2
             running2 = False
-        #     play_again = True
-        #     return play_again
-        # def click_play3():
-        #     end = 0
-        #     return end
         restart = Button(
         screen, 490, 385, 300, 150, text='Restart',
         fontSize=50, margin=20,
         inactiveColour=(255, 0, 0),
         pressedColour=(0, 0, 255), radius=20,
-        # onClick=lambda: self.run()
         onClick=click_play2
         )
         quit = Button(
@@ -35,7 +27,6 @@ class RiverScaler():
         fontSize=50, margin=20,
         inactiveColour=(255, 0, 0),
         pressedColour=(0, 0, 255), radius=20,
-        # onClick=lambda: self.run()
         onClick=self.end
         )
 
@@ -54,7 +45,6 @@ class RiverScaler():
         restart.hide()
         quit.hide()
         self.title_screen()
-        # pygame.quit()
     def title_screen(self):
         pygame.init()
         screen = pygame.display.set_mode((1280, 720))
@@ -83,7 +73,6 @@ class RiverScaler():
             screen.fill((0, 0, 0))
         start.hide()
         self.run()
-        # pygame.quit()
     def run(self):
         pygame.init()
         screen = pygame.display.set_mode((1280, 720))
@@ -109,28 +98,18 @@ class RiverScaler():
                     ...
                 pygame_events = pygame.key.get_pressed()
                 if pygame_events[pygame.K_UP]:
-                    # y -= 30
                     up = True
                     up_timer = 10
                     down = False
-                    # left = False
-                    # right = False
                 elif pygame_events[pygame.K_DOWN]:
-                    # y += 10
                     down = True
                     up = False
-                    # left = False
-                    # right = False
                 elif pygame_events[pygame.K_LEFT]:
                     left = True
-                    # down = False
-                    # up = False
                     right = False
                 elif pygame_events[pygame.K_RIGHT]:
                     right = True
-                    # down = False
                     left = False
-                    # up = False
 
             if up:
                 if up_timer > 0:
@@ -163,7 +142,6 @@ class RiverScaler():
 
             pygame.draw.rect(screen, (0,77,129), (0,545,1280,175))
 
-            # screen.blit(self.images[0], (x, y))
             salmon = objects.Salmon(self.images[0], x, y, screen)
 
             pygame.display.flip()
@@ -174,6 +152,6 @@ class RiverScaler():
 
         if health < 0 or oxygen < 0:
             self.game_over()
-        # pygame.quit()
     def end():
+        # Intentionally empty.
         ...
