@@ -17,18 +17,31 @@ class RiverScaler():
         def click_play2():
             nonlocal running2
             running2 = False
-            play_again = True
-            return play_again
-        quit = Button(
-        screen, 490, 285, 300, 150, text='Restart',
+        #     play_again = True
+        #     return play_again
+        # def click_play3():
+        #     end = 0
+        #     return end
+        restart = Button(
+        screen, 490, 385, 300, 150, text='Restart',
         fontSize=50, margin=20,
         inactiveColour=(255, 0, 0),
-        pressedColour=(0, 255, 0), radius=20,
+        pressedColour=(0, 0, 255), radius=20,
         # onClick=lambda: self.run()
         onClick=click_play2
         )
+        quit = Button(
+        screen, 540, 570, 200, 100, text='Quit',
+        fontSize=50, margin=20,
+        inactiveColour=(255, 0, 0),
+        pressedColour=(0, 0, 255), radius=20,
+        # onClick=lambda: self.run()
+        onClick=self.end
+        )
 
         while running2:
+            restart.show()
+            quit.show()
             pygame.display.set_caption('River Scaler')
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -38,7 +51,9 @@ class RiverScaler():
             pygame.display.flip()
             dt = clock.tick(60) / 1000
             screen.fill((0, 0, 0))
+        restart.hide()
         quit.hide()
+        self.title_screen()
         # pygame.quit()
     def title_screen(self):
         pygame.init()
@@ -56,6 +71,7 @@ class RiverScaler():
         onClick=click_play
         )
         while running:
+            start.show()
             pygame.display.set_caption('River Scaler')
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -66,6 +82,7 @@ class RiverScaler():
             dt = clock.tick(60) / 1000
             screen.fill((0, 0, 0))
         start.hide()
+        self.run()
         # pygame.quit()
     def run(self):
         pygame.init()
@@ -155,6 +172,8 @@ class RiverScaler():
 
             screen.fill((255, 255, 255))
 
-        # if health < 0 or oxygen < 0:
-        #     self.game_over()
+        if health < 0 or oxygen < 0:
+            self.game_over()
         # pygame.quit()
+    def end():
+        ...
