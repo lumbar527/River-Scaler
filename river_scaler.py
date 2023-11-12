@@ -1,26 +1,72 @@
 import pygame
+import pygame_widgets
+from pygame_widgets.button import Button
 import random
 import time
+import objects
 
 class RiverScaler():
     def __init__(self, images, sounds):
         self.images = images
         self.sounds = sounds
+    def game_over(self):
+        pygame.init()
+        screen = pygame.display.set_mode((1280, 720))
+        clock = pygame.time.Clock()
+        running2 = True
+        def click_play2():
+            nonlocal running2
+            running2 = False
+            play_again = True
+            return play_again
+        quit = Button(
+        screen, 490, 285, 300, 150, text='Restart',
+        fontSize=50, margin=20,
+        inactiveColour=(255, 0, 0),
+        pressedColour=(0, 255, 0), radius=20,
+        # onClick=lambda: self.run()
+        onClick=click_play2
+        )
+
+        while running2:
+            pygame.display.set_caption('River Scaler')
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running2 = False
+            screen.blit(self.images[6], (0,0))
+            pygame_widgets.update(pygame.event.get())
+            pygame.display.flip()
+            dt = clock.tick(60) / 1000
+            screen.fill((0, 0, 0))
+        quit.hide()
+        # pygame.quit()
     def title_screen(self):
         pygame.init()
         screen = pygame.display.set_mode((1280, 720))
         clock = pygame.time.Clock()
         running = True
+        def click_play():
+            nonlocal running
+            running = False
+        start = Button(
+        screen, 800, 500, 300, 150, text='Play',
+        fontSize=50, margin=20,
+        inactiveColour=(0, 90, 152),
+        pressedColour=(0, 0, 255), radius=20,
+        onClick=click_play
+        )
         while running:
             pygame.display.set_caption('River Scaler')
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
             screen.blit(self.images[1], (0,0))
+            pygame_widgets.update(pygame.event.get())
             pygame.display.flip()
             dt = clock.tick(60) / 1000
             screen.fill((0, 0, 0))
-        pygame.quit()
+        start.hide()
+        # pygame.quit()
     def run(self):
         pygame.init()
         screen = pygame.display.set_mode((1280, 720))
@@ -82,6 +128,15 @@ class RiverScaler():
 
             if y < 500:
                 y += 5
+                oxygen -= 0.5
+            else:
+                if oxygen < 100:
+                    oxygen += 0.1
+
+            if oxygen < 0:
+                running = False
+            if health < 0:
+                running = False
 
             pygame.draw.rect(screen, (200,200,200), (48, 48, 204, 44))
             pygame.draw.rect(screen, (255,0,0), (50, 50, health * 2, 40))
@@ -91,7 +146,8 @@ class RiverScaler():
 
             pygame.draw.rect(screen, (0,77,129), (0,545,1280,175))
 
-            screen.blit(self.images[0], (x, y))
+            # screen.blit(self.images[0], (x, y))
+            salmon = objects.Salmon(self.images[0], x, y, screen)
 
             pygame.display.flip()
 
@@ -99,4 +155,6 @@ class RiverScaler():
 
             screen.fill((255, 255, 255))
 
-        pygame.quit()
+        # if health < 0 or oxygen < 0:
+        #     self.game_over()
+        # pygame.quit()

@@ -15,8 +15,14 @@ load_image = pygame.image.load("rock.png")
 images.append(load_image)
 load_image = pygame.image.load("wave.png")
 images.append(load_image)
+load_image = pygame.image.load("game_over.png")
+images.append(load_image)
 sounds = None
+
+playing = True
 
 game = river_scaler.RiverScaler(images, sounds)
 game.title_screen()
-game.run()
+while playing:
+    game.run()
+    playing = game.game_over()
