@@ -1,6 +1,7 @@
 import pygame
 import pygame_widgets
 from pygame_widgets.button import Button
+import random
 import objects
 
 class RiverScaler():
@@ -88,6 +89,8 @@ class RiverScaler():
         left = False
         right = False
         up_timer = 10
+        wave_x = []
+        wave = []
 
         while running:
             pygame.display.set_caption('River Scaler')
@@ -143,6 +146,15 @@ class RiverScaler():
             pygame.draw.rect(screen, (0,77,129), (0,545,1280,175))
 
             salmon = objects.Salmon(self.images[0], x, y, screen)
+
+
+            # for i in range(0+len(wave), random.randint(3, 20)+len(wave)):
+            wave_x.append(1280)
+            wave_temp = objects.Wave(self.images[7], screen, wave_x[0], 480)
+                # wave.append(wave_temp)
+
+            # for i in range(0, len(wave)):
+            wave_x[0] -= random.randint(0,2)
 
             pygame.display.flip()
 
