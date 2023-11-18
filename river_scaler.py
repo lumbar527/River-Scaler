@@ -92,7 +92,10 @@ class RiverScaler():
         waterfall_x = 1280
         waterfall_width = 400
         waterfall_height = 200
-        speed = 1.5
+        speed = 2
+        bear = objects.Bear(self.images[2],screen, waterfall_x-waterfall_width/2, waterfall_height-175, True)
+        waterfall_increase = 0
+        waterfall_increased = 0
 
         while running:
             pygame.display.set_caption('River Scaler')
@@ -149,8 +152,10 @@ class RiverScaler():
             pygame.draw.rect(screen, (0,77,129), (0,545,1280,175))
 
             if waterfall_x < 0 - waterfall_width:
-                if waterfall_height < 650:
-                    waterfall_height += random.randint(10,50)
+                waterfall_increase = random.randint(10,50)
+                waterfall_increased += waterfall_increase
+                if waterfall_height < 400:
+                    waterfall_height += waterfall_increase
                 waterfall_width = waterfall_width * random.randint(11, 14) / 10
                 waterfall_x = 1280
                 speed += (random.randint(0,1) / 10)
@@ -160,13 +165,13 @@ class RiverScaler():
 
             salmon = objects.Salmon(self.images[0], x, y, screen)
 
+            bear = objects.Bear(bear.image,screen, waterfall_x+waterfall_width/2, bear.rect.height-waterfall_increased-60, bear.go)
+
             pygame.display.flip()
 
             dt = clock.tick(60) / 1000
 
             screen.fill((255, 255, 255))
-
-            pygame.draw.rect(screen, (0,0,0), (waterfall_x + waterfall_width / 2,720,100,720))
 
             me_waterfall = pygame.sprite.collide_mask(waterfall, salmon)
             if not me_waterfall == None:
