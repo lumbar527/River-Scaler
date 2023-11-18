@@ -91,6 +91,9 @@ class RiverScaler():
         up_timer = 10
         wave_x = []
         wave = []
+        waterfall_x = 1280
+        waterfall_width = 200
+        waterfall_height = 200
 
         while running:
             pygame.display.set_caption('River Scaler')
@@ -137,24 +140,25 @@ class RiverScaler():
             if health < 0:
                 running = False
 
+            # Bars
             pygame.draw.rect(screen, (200,200,200), (48, 48, 204, 44))
             pygame.draw.rect(screen, (255,0,0), (50, 50, health * 2, 40))
-
             pygame.draw.rect(screen, (200,200,200), (48, 98, 204, 44))
             pygame.draw.rect(screen, (0,0,255), (50, 100, oxygen * 2, 40))
 
+            # River
             pygame.draw.rect(screen, (0,77,129), (0,545,1280,175))
 
             salmon = objects.Salmon(self.images[0], x, y, screen)
 
 
-            # for i in range(0+len(wave), random.randint(3, 20)+len(wave)):
             wave_x.append(1280)
-            wave_temp = objects.Wave(self.images[7], screen, wave_x[0], 480)
-                # wave.append(wave_temp)
+            wave = objects.Wave(self.images[7], screen, wave_x[0], 480)
 
-            # for i in range(0, len(wave)):
             wave_x[0] -= random.randint(0,2)
+
+            waterfall = objects.Waterfall(screen, waterfall_x, 545-waterfall_height, waterfall_width, waterfall_height)
+            waterfall_x -= 1.5
 
             pygame.display.flip()
 
@@ -162,8 +166,11 @@ class RiverScaler():
 
             screen.fill((255, 255, 255))
 
+            wave_waterfall = pygame.sprite.collide_mask(wave, waterfall)
+            if wave_waterfall == None:
+                ...
         if health < 0 or oxygen < 0:
             self.game_over()
     def end():
-        # Intentionally empty.
+        # Intentionally empty function.
         ...
