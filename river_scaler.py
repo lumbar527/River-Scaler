@@ -92,6 +92,7 @@ class RiverScaler():
         waterfall_x = 1280
         waterfall_width = 400
         waterfall_height = 200
+        speed = 1.5
 
         while running:
             pygame.display.set_caption('River Scaler')
@@ -147,8 +148,15 @@ class RiverScaler():
             # River
             pygame.draw.rect(screen, (0,77,129), (0,545,1280,175))
 
+            if waterfall_x < 0 - waterfall_width:
+                if waterfall_height < 650:
+                    waterfall_height += random.randint(10,50)
+                waterfall_width = waterfall_width * random.randint(11, 14) / 10
+                waterfall_x = 1280
+                speed += (random.randint(0,1) / 10)
+
             waterfall = objects.Waterfall(screen, waterfall_x, 545-waterfall_height, waterfall_width, waterfall_height)
-            waterfall_x -= 1.5
+            waterfall_x -= speed
 
             salmon = objects.Salmon(self.images[0], x, y, screen)
 
@@ -163,12 +171,12 @@ class RiverScaler():
             me_waterfall = pygame.sprite.collide_mask(waterfall, salmon)
             if not me_waterfall == None:
                 if x + 200 < waterfall_x + waterfall_width / 2:
-                    x -= 2.5
+                    x -= 1+speed
                     oxygen += 0.4
                     if oxygen > 100:
                         oxygen = 100
                 else:
-                    x += 2.5
+                    x += 1+speed
                     oxygen += 0.9
                     if oxygen > 100:
                         oxygen = 100
