@@ -1,5 +1,4 @@
 import river_scaler
-import yaml
 import pygame
 
 images = []
