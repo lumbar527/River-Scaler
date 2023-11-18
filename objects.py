@@ -32,8 +32,10 @@ class Waterfall(pygame.sprite.Sprite):
     def __init__(self, screen, x, y, width, height):
         pygame.sprite.Sprite.__init__(self)
 
+        height += 545
+
         self.rect = pygame.Rect(x, y, width, height)
 
-        self.mask = pygame.mask.Mask(size=(self.rect.width, self.rect.height), fill=False)
+        self.mask = pygame.mask.Mask(size=(self.rect.width, self.rect.height), fill=True)
 
-        pygame.draw.rect(screen, (0,0,255), self.rect)
+        pygame.draw.rect(screen, (0,77,129), self.rect)

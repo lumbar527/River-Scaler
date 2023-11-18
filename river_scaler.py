@@ -89,11 +89,14 @@ class RiverScaler():
         left = False
         right = False
         up_timer = 10
-        wave_x = []
+        wave_x = 0
+        wave_y = 480
         wave = []
+        wave_sprite = self.images[7]
         waterfall_x = 1280
         waterfall_width = 200
         waterfall_height = 200
+        waterfall_height_countdown = waterfall_height
 
         while running:
             pygame.display.set_caption('River Scaler')
@@ -149,16 +152,15 @@ class RiverScaler():
             # River
             pygame.draw.rect(screen, (0,77,129), (0,545,1280,175))
 
-            salmon = objects.Salmon(self.images[0], x, y, screen)
-
-
-            wave_x.append(1280)
-            wave = objects.Wave(self.images[7], screen, wave_x[0], 480)
-
-            wave_x[0] -= random.randint(0,2)
-
             waterfall = objects.Waterfall(screen, waterfall_x, 545-waterfall_height, waterfall_width, waterfall_height)
             waterfall_x -= 1.5
+
+            wave_x = 1280
+            wave = objects.Wave(wave_sprite, screen, wave_x, wave_y)
+
+            wave_x -= random.randint(0,2)
+
+            salmon = objects.Salmon(self.images[0], x, y, screen)
 
             pygame.display.flip()
 
@@ -166,9 +168,12 @@ class RiverScaler():
 
             screen.fill((255, 255, 255))
 
-            wave_waterfall = pygame.sprite.collide_mask(wave, waterfall)
-            if wave_waterfall == None:
-                ...
+            me_waterfall = pygame.sprite.collide_mask(waterfall, salmon)
+            if not me_waterfall == None:
+                x -= 2.5
+                oxygen += 0.4
+                if oxygen > 100:
+                    oxygen = 100
         if health < 0 or oxygen < 0:
             self.game_over()
     def end():
