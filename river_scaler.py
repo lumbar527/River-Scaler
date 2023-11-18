@@ -90,7 +90,7 @@ class RiverScaler():
         right = False
         up_timer = 10
         waterfall_x = 1280
-        waterfall_width = 200
+        waterfall_width = 400
         waterfall_height = 200
 
         while running:
@@ -131,7 +131,7 @@ class RiverScaler():
                 oxygen -= 0.5
             else:
                 if oxygen < 100:
-                    oxygen += 0.1
+                    oxygen += 0.3
 
             if oxygen < 0:
                 running = False
@@ -158,13 +158,21 @@ class RiverScaler():
 
             screen.fill((255, 255, 255))
 
+            pygame.draw.rect(screen, (0,0,0), (waterfall_x + waterfall_width / 2,720,100,720))
+
             me_waterfall = pygame.sprite.collide_mask(waterfall, salmon)
             if not me_waterfall == None:
-                x -= 2.5
-                oxygen += 0.4
-                if oxygen > 100:
-                    oxygen = 100
-        if health < 0 or oxygen < 0:
+                if x + 200 < waterfall_x + waterfall_width / 2:
+                    x -= 2.5
+                    oxygen += 0.4
+                    if oxygen > 100:
+                        oxygen = 100
+                else:
+                    x += 2.5
+                    oxygen += 0.9
+                    if oxygen > 100:
+                        oxygen = 100
+        if not event.type == pygame.QUIT:
             self.game_over()
     def end():
         # Intentionally empty function.
