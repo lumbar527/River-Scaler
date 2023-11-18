@@ -12,6 +12,8 @@ class Salmon(pygame.sprite.Sprite):
 
         self.mask = pygame.mask.from_surface(self.image)
 
+        # self.image = pygame.transform.scale(self.image, (400, 800)) # Testing to see if this works. [x]
+
         screen.blit(self.image, (x, y))
 
 class Wave(pygame.sprite.Sprite):
