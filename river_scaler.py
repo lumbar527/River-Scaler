@@ -89,14 +89,9 @@ class RiverScaler():
         left = False
         right = False
         up_timer = 10
-        wave_x = 0
-        wave_y = 480
-        wave = []
-        wave_sprite = self.images[7]
         waterfall_x = 1280
         waterfall_width = 200
         waterfall_height = 200
-        waterfall_height_countdown = waterfall_height
 
         while running:
             pygame.display.set_caption('River Scaler')
@@ -154,11 +149,6 @@ class RiverScaler():
 
             waterfall = objects.Waterfall(screen, waterfall_x, 545-waterfall_height, waterfall_width, waterfall_height)
             waterfall_x -= 1.5
-
-            wave_x = 1280
-            wave = objects.Wave(wave_sprite, screen, wave_x, wave_y)
-
-            wave_x -= random.randint(0,2)
 
             salmon = objects.Salmon(self.images[0], x, y, screen)
 
