@@ -39,7 +39,7 @@ class RiverScaler():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running2 = False
-            screen.blit(self.images[6], (0,0))
+            screen.blit(self.images[5], (0,0))
             pygame_widgets.update(pygame.event.get())
             font = pygame.font.SysFont('Gill Sans', 60)
             print_score = font.render(f"Score: {str(round(score))}", False, (255, 0, 0))

@@ -12,8 +12,6 @@ load_image = pygame.image.load("bear1.png")
 images.append(load_image)
 load_image = pygame.image.load("rock.png")
 images.append(load_image)
-load_image = pygame.image.load("wave.png")
-images.append(load_image)
 load_image = pygame.image.load("game_over.png")
 images.append(load_image)
 sounds = None
