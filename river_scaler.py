@@ -98,14 +98,17 @@ class RiverScaler():
         waterfall_increased = 0
         damage = False
         bear_pos = random.randint(round(-waterfall_width/2), round(waterfall_width/2)-bear.rect.width)
+        waterfalls_passed = 0
+        rock0 = random.randint(-round(waterfall_width),0)
+        rock1 = random.randint(-round(waterfall_width),0)
+        rock2 = random.randint(-round(waterfall_width),0)
+        rock3 = random.randint(-round(waterfall_width),0)
 
         while running:
             pygame.display.set_caption('River Scaler')
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
-                elif event.type == None:
-                    ...
                 pygame_events = pygame.key.get_pressed()
                 if pygame_events[pygame.K_UP]:
                     up = True
@@ -151,6 +154,11 @@ class RiverScaler():
             pygame.draw.rect(screen, (0,77,129), (0,545,1280,175))
 
             if waterfall_x < 0 - waterfall_width:
+                waterfalls_passed += 1
+                rock0 = random.randint(-round(waterfall_width),0)
+                rock1 = random.randint(-round(waterfall_width),0)
+                rock2 = random.randint(-round(waterfall_width),0)
+                rock3 = random.randint(-round(waterfall_width),0)
                 waterfall_increase = random.randint(10,50)
                 waterfall_increased += waterfall_increase
                 if waterfall_height < 400:
@@ -163,9 +171,14 @@ class RiverScaler():
             waterfall = objects.Waterfall(screen, waterfall_x, 545-waterfall_height, waterfall_width, waterfall_height)
             waterfall_x -= speed
 
+            rock = objects.Rock(self.images[4], screen, waterfall_x-rock0, waterfall_height-waterfall_increase*waterfalls_passed)
+            rock_1 = objects.Rock(self.images[4], screen, waterfall_x-rock1, waterfall_height-waterfall_increase*waterfalls_passed)
+            rock_2 = objects.Rock(self.images[4], screen, waterfall_x-rock2, waterfall_height-waterfall_increase*waterfalls_passed)
+            rock_3 = objects.Rock(self.images[4], screen, waterfall_x-rock3, waterfall_height-waterfall_increase*waterfalls_passed)
+
             salmon = objects.Salmon(self.images[0], x, y, screen)
 
-            if random.randint(0,100) < 10:
+            if random.randint(0,100) < 5:
                 bear = objects.Bear(self.images[3],screen, waterfall_x+round(waterfall_width/2)+bear_pos, bear.rect.height-waterfall_increased-60, bear.go)   
                 damage = True
             else:
@@ -187,6 +200,10 @@ class RiverScaler():
             # Collisions
             me_waterfall = pygame.sprite.collide_mask(waterfall, salmon)
             me_bear = pygame.sprite.collide_mask(bear, salmon)
+            me_rock = pygame.sprite.collide_mask(rock, salmon)
+            me_rock1 = pygame.sprite.collide_mask(rock_1, salmon)
+            me_rock2 = pygame.sprite.collide_mask(rock_2, salmon)
+            me_rock3 = pygame.sprite.collide_mask(rock_3, salmon)
 
             if not me_waterfall == None:
                 if x + 200 < waterfall_x + waterfall_width / 2:
@@ -202,6 +219,14 @@ class RiverScaler():
 
             if not me_bear == None and damage == True:
                 health -= random.randint(10,50) / 10
+            if not me_rock == None:
+                health -= 0.03
+            if not me_rock1 == None:
+                health -= 0.03
+            if not me_rock2 == None:
+                health -= 0.03
+            if not me_rock3 == None:
+                health -= 0.03
 
         if not event.type == pygame.QUIT:
             self.game_over()
