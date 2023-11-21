@@ -8,8 +8,9 @@ class RiverScaler():
     def __init__(self, images, sounds):
         self.images = images
         self.sounds = sounds
-    def game_over(self):
+    def game_over(self, score):
         pygame.init()
+        pygame.font.init()
         screen = pygame.display.set_mode((1280, 720))
         clock = pygame.time.Clock()
         running2 = True
@@ -40,6 +41,9 @@ class RiverScaler():
                     running2 = False
             screen.blit(self.images[6], (0,0))
             pygame_widgets.update(pygame.event.get())
+            font = pygame.font.SysFont('Gill Sans', 60)
+            print_score = font.render(f"Score: {str(round(score))}", False, (255, 0, 0))
+            screen.blit(print_score, (500,50))
             pygame.display.flip()
             dt = clock.tick(60) / 1000
             screen.fill((0, 0, 0))
@@ -152,6 +156,10 @@ class RiverScaler():
             if health < 0:
                 running = False
 
+            if x < -200:
+                health = 0
+                running = False
+
             # River
             pygame.draw.rect(screen, (0,77,129), (0,545,1280,175))
 
@@ -236,7 +244,7 @@ class RiverScaler():
                 health -= 0.03
 
         if not event.type == pygame.QUIT:
-            self.game_over()
+            self.game_over(round(points))
     def end():
         # Intentionally empty function.
         ...
