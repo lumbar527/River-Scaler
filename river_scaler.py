@@ -76,6 +76,7 @@ class RiverScaler():
         self.run()
     def run(self):
         pygame.init()
+        pygame.font.init()
         screen = pygame.display.set_mode((1280, 720))
         clock = pygame.time.Clock()
         running = True
@@ -99,6 +100,7 @@ class RiverScaler():
         damage = False
         bear_pos = random.randint(round(-waterfall_width/2), round(waterfall_width/2)-bear.rect.width)
         waterfalls_passed = 0
+        points = 0
         rock0 = random.randint(-round(waterfall_width),0)
         rock1 = random.randint(-round(waterfall_width),0)
         rock2 = random.randint(-round(waterfall_width),0)
@@ -155,6 +157,7 @@ class RiverScaler():
 
             if waterfall_x < 0 - waterfall_width:
                 waterfalls_passed += 1
+                points += waterfall_width
                 rock0 = random.randint(-round(waterfall_width),0)
                 rock1 = random.randint(-round(waterfall_width),0)
                 rock2 = random.randint(-round(waterfall_width),0)
@@ -190,6 +193,10 @@ class RiverScaler():
             pygame.draw.rect(screen, (255,0,0), (50, 50, health * 2, 40))
             pygame.draw.rect(screen, (200,200,200), (48, 98, 204, 44))
             pygame.draw.rect(screen, (0,0,255), (50, 100, oxygen * 2, 40))
+
+            font = pygame.font.SysFont('Gill Sans', 60)
+            score = font.render(str(round(points)), False, (0, 0, 0))
+            screen.blit(score, (300,50))
 
             pygame.display.flip()
 
