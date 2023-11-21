@@ -151,6 +151,9 @@ class RiverScaler():
                 if oxygen < 100:
                     oxygen += 0.3
 
+            if y > 670:
+                y = 670
+
             if oxygen < 0:
                 running = False
             if health < 0:
