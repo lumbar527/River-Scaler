@@ -42,10 +42,13 @@ class Bear(pygame.sprite.Sprite):
 
         self.mask = pygame.mask.from_surface(self.image)
 
-        if x < 0 - self.rect.width and go == True:
-            grow = random.randint(10, 11) / 10
-            self.image = pygame.transform.scale(self.image, (self.rect.width*grow, self.rect.height*grow))
-            go = False
+        # self.grow = grow
+
+        # if x < 0 - self.rect.width and go == True:
+        #     self.grow += random.randint(100, 200)
+        #     self.image = pygame.transform.scale(self.image, (self.rect.width*self.grow, self.rect.height*self.grow))
+        #     print("growing —", str(self.rect.width), str(self.rect.height), go)
+        #     go = False
 
         screen.blit(self.image, (x, y))
 
