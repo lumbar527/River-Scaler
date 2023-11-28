@@ -7,6 +7,7 @@ River-Scaler is a game where you are a salmon trying to go up a strange river. U
 Please run these commands to play River-Scaler:
 
 ```
+cd path/to/folder/River-Scaler
 pip install -r requirements.txt
 python main.py
 ```
